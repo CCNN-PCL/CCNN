@@ -1,0 +1,22 @@
+db: 
+  user: "root"
+  password: "pcnl2025"
+  db_name: "medical_sh"
+  addresses:
+    - "127.0.0.1:4000"
+  ssl:
+    enable: false 
+log:
+  file_path: "./logs/mms.log"
+  verbose: true
+  debug: true
+obs:
+  endpoint: "172.22.11.165:32577" 
+  access_key: "07QPCDDQ3HWW7NP8Z1CN"
+  secret_key: "yh068Rkt4StPxpmkR8AEPBHB6aibbAdJ55AK0Lj7"
+server:
+  address: 0.0.0.0:8080
+token_verfier:
+  url: "http://192.168.193.9:31124"
+  path: "/auth/trust-sensitivity" 
+  timeout: 30

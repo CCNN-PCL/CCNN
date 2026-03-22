@@ -1,0 +1,49 @@
+# model-inference-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchinfer-deployment  # Deployment 名称
+  namespace: abacmodel
+  labels:
+    app: matchinfer  # 标签，用于和 Service 关联
+spec:
+  replicas: 1  # 启动 1 个 Pod 实例（可根据需求调整）
+  selector:
+    matchLabels:
+      app: matchinfer  # 匹配 Pod 的标签
+  template:
+    metadata:
+      labels:
+        app: matchinfer  # Pod 标签，需和 selector 一致
+    spec:
+      nodeSelector:
+        app: abacmodel
+      containers:
+      - name: matchinfer-container  # 容器名称
+        image: matchmodel:v1.0  # 你的镜像名（需确保集群内节点能拉取到）
+        # 关键：若镜像是本地构建（未推送到仓库），需在每个节点手动加载，或设置 imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent  # 优先使用本地镜像，没有再拉取（本地测试推荐）
+        ports:
+        - containerPort: 8000  # 容器内服务端口（和 FastAPI 启动端口一致）
+        # 可选：资源限制（避免资源占用过高）
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+# Service：集群内访问入口（ClusterIP 类型，仅集群内可见）
+apiVersion: v1
+kind: Service
+metadata:
+  name: matchinfer-service  # Service 名称（集群内访问时用这个名字）
+  namespace: abacmodel
+spec:
+  selector:
+    app: matchinfer  # 关联上面 Deployment 的 Pod 标签
+  ports:
+  - port: 8000  # Service 暴露的端口（集群内访问时用这个端口）
+    targetPort: 8000  # 映射到 Pod 内的端口（和 containerPort 一致）
+  type: ClusterIP  # 集群内访问类型（默认，无需修改）

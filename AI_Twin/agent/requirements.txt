@@ -1,0 +1,26 @@
+streamlit
+fastapi
+uvicorn
+python-multipart==0.0.9
+aiohttp==3.9.3
+python-dotenv
+pydantic
+sqlalchemy==2.0.28
+pillow==10.2.0
+requests==2.31.0
+DBUtils==3.0.3
+nest-asyncio==1.6.0
+PyPDF2==3.0.1
+PyJWT==2.8.0
+cryptography==41.0.7
+bcrypt==4.1.2
+passlib==1.7.4
+# 流处理相关依赖
+sse-starlette==1.6.5
+fastapi_session==0.2.7
+websockets
+socketio
+redis
+a2a-sdk
+mcp
+fastmcp==2.13.1

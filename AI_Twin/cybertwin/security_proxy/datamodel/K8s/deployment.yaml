@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datainfer-deployment  # Deployment名称
+  namespace: abacmodel       # 部署到matchmodel命名空间
+  labels:
+    app: datainfer-service    # 标签，用于匹配Service和Pod
+spec:
+  replicas: 1                 # 初始副本数（高可用）
+  selector:
+    matchLabels:
+      app: datainfer-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1             # 滚动更新时最多新增1个Pod
+      maxUnavailable: 0       # 更新过程中不允许服务不可用
+  template:
+    metadata:
+      labels:
+        app: datainfer-service
+    spec:
+      # 安全上下文：非root用户运行
+      nodeSelector:
+        app: abacmodel
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: datainfer-container
+        image: datamodel:v1.0  # 镜像名称（与构建时一致）
+        imagePullPolicy: IfNotPresent  # 优先使用本地镜像，无则拉取仓库
+        ports:
+        - containerPort: 8000      # 容器内服务端口
+        # 资源限制：避免资源争抢
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "1000m"
+        # 就绪探针：确认Pod可接收请求
+        readinessProbe:
+          httpGet:
+            path: /health  # 健康检查接口
+            port: 8000
+          initialDelaySeconds: 30  # 启动后延迟10s检查
+          periodSeconds: 5         # 每5s检查一次
+        # 存活探针：确认Pod存活，故障时重启
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+---
+# 集群内服务发现：Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: datainfer-service
+  namespace: abacmodel
+spec:
+  selector:
+    app: datainfer-service  # 关联上面的Deployment
+  ports:
+  - port: 80                # Service暴露端口
+    targetPort: 8000        # 映射到容器的8000端口
+  type: ClusterIP           # 仅集群内访问（外部可通过port-forward）

@@ -1,0 +1,142 @@
+[
+  {
+    "user_id": "111",                          // 用户唯一标识
+    "date": "2025-11-08",                      // 数据日期（年-月-日）
+    "heart_rate": {                            // 心率相关指标
+      "avg_bpm": 72,                           // 当日平均心率（beats per minute）
+      "max_bpm": 135,                          // 当日最高心率
+      "min_bpm": 55,                           // 当日最低心率
+      "resting_bpm": 58                        // 静息心率（清晨未活动时）
+    },
+    "blood_glucose": {                         // 血糖相关指标
+      "morning_mmol": 5.2,                     // 早晨空腹血糖（mmol/L）
+      "evening_mmol": 5.8                      // 晚间餐后血糖（mmol/L）
+    },
+    "sleep": {                                 // 睡眠相关指标
+      "total_minutes": 468,                    // 总睡眠时长（分钟）
+      "deep_minutes": 95,                      // 深睡时长（分钟）
+      "light_minutes": 285,                    // 浅睡时长（分钟）
+      "rem_minutes": 88,                       // 快速眼动期时长（分钟）
+      "bedtime": "23:15",                      // 入睡时间（HH:MM，24 小时制）
+      "wake_time": "07:03"                     // 醒来时间（HH:MM，24 小时制）
+    },
+    "steps": 10234,                            // 当日累计步数
+    "distance_km": 7.8,                        // 当日累计步行距离（公里）
+    "calories_kcal": 312,                      // 当日活动消耗热量（千卡）
+    "stress_level": 28,                        // 压力指数（0–100，越大越紧张）
+    "spo2_percent": 98,                        // 血氧饱和度（%）
+    "skin_temp_celsius": 33.4                  // 皮肤温度（摄氏度）
+  },
+  {
+    "user_id": "111",
+    "date": "2025-11-09",
+    "heart_rate": {
+      "avg_bpm": 74,
+      "max_bpm": 142,
+      "min_bpm": 56,
+      "resting_bpm": 59
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.0,
+      "evening_mmol": 6.1
+    },
+    "sleep": {
+      "total_minutes": 445,
+      "deep_minutes": 88,
+      "light_minutes": 270,
+      "rem_minutes": 87,
+      "bedtime": "23:45",
+      "wake_time": "07:10"
+    },
+    "steps": 8932,
+    "distance_km": 6.5,
+    "calories_kcal": 287,
+    "stress_level": 35,
+    "spo2_percent": 97,
+    "skin_temp_celsius": 33.6
+  },
+  {
+    "user_id": "111",
+    "date": "2025-11-10",
+    "heart_rate": {
+      "avg_bpm": 70,
+      "max_bpm": 128,
+      "min_bpm": 54,
+      "resting_bpm": 57
+    },
+    "blood_glucose": {
+      "morning_mmol": 4.9,
+      "evening_mmol": 5.5
+    },
+    "sleep": {
+      "total_minutes": 512,
+      "deep_minutes": 110,
+      "light_minutes": 310,
+      "rem_minutes": 92,
+      "bedtime": "22:30",
+      "wake_time": "06:42"
+    },
+    "steps": 11567,
+    "distance_km": 8.9,
+    "calories_kcal": 345,
+    "stress_level": 22,
+    "spo2_percent": 99,
+    "skin_temp_celsius": 33.2
+  },
+  {
+    "user_id": "111",
+    "date": "2025-11-11",
+    "heart_rate": {
+      "avg_bpm": 76,
+      "max_bpm": 150,
+      "min_bpm": 58,
+      "resting_bpm": 60
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.4,
+      "evening_mmol": 6.0
+    },
+    "sleep": {
+      "total_minutes": 420,
+      "deep_minutes": 75,
+      "light_minutes": 260,
+      "rem_minutes": 85,
+      "bedtime": "00:10",
+      "wake_time": "07:10"
+    },
+    "steps": 7234,
+    "distance_km": 5.4,
+    "calories_kcal": 256,
+    "stress_level": 42,
+    "spo2_percent": 96,
+    "skin_temp_celsius": 33.7
+  },
+  {
+    "user_id": "111",
+    "date": "2025-11-12",
+    "heart_rate": {
+      "avg_bpm": 73,
+      "max_bpm": 138,
+      "min_bpm": 55,
+      "resting_bpm": 58
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.1,
+      "evening_mmol": 5.7
+    },
+    "sleep": {
+      "total_minutes": 485,
+      "deep_minutes": 98,
+      "light_minutes": 295,
+      "rem_minutes": 92,
+      "bedtime": "23:00",
+      "wake_time": "07:05"
+    },
+    "steps": 10890,
+    "distance_km": 8.2,
+    "calories_kcal": 328,
+    "stress_level": 30,
+    "spo2_percent": 98,
+    "skin_temp_celsius": 33.3
+  }
+]

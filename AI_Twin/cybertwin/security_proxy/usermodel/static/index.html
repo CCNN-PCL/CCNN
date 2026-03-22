@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Evaluation API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trust Evaluation API</h1>
+        <p style="text-align: center; color: #666;">Evaluate user trust scores using machine learning models</p>
+        
+        <form id="trustForm">
+            <div class="form-group">
+                <label for="subject_type">Subject Type:</label>
+                <select id="subject_type" name="subject_type" required>
+                    <option value="user">User</option>
+                    <option value="app">App</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="common_device">Common Device (0-1):</label>
+                <input type="number" id="common_device" name="common_device" min="0" max="1" step="0.01" value="0.8" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="text" id="time" name="time" value="09:00" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" value="office" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bio">Biometric Score (0-1):</label>
+                <input type="number" id="bio" name="bio" min="0" max="1" step="0.01" value="0.9" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="pswd">Password Strength (0-1):</label>
+                <input type="number" id="pswd" name="pswd" min="0" max="1" step="0.01" value="0.7" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="access_network_score">Access Network Score (0-1):</label>
+                <input type="number" id="access_network_score" name="access_network_score" min="0" max="1" step="0.01" value="0.8" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="network_risk">Network Risk (0-1):</label>
+                <input type="number" id="network_risk" name="network_risk" min="0" max="1" step="0.01" value="0.2" required>
+            </div>
+            
+            <button type="submit">Evaluate Trust Score</button>
+        </form>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('trustForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Convert numeric fields
+            data.common_device = parseFloat(data.common_device);
+            data.bio = parseFloat(data.bio);
+            data.pswd = parseFloat(data.pswd);
+            data.access_network_score = parseFloat(data.access_network_score);
+            data.network_risk = parseFloat(data.network_risk);
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = 'Evaluating trust score...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/evaluate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>Trust Evaluation Result</h3>
+                        <p><strong>Trust Score:</strong> ${result.trust_score}</p>
+                        <p><strong>Status:</strong> ${result.status}</p>
+                        <p><strong>Message:</strong> ${result.message}</p>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>Error</h3>
+                        <p><strong>Status:</strong> ${result.status || 'Error'}</p>
+                        <p><strong>Message:</strong> ${result.detail || result.message || 'An error occurred'}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>Connection Error</h3>
+                    <p>Could not connect to the API. Make sure the server is running on http://localhost:8000</p>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

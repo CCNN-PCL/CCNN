@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+docs/
+README.md
+CHECK_REPORT.md
+MIGRATION_NOTES.md
+MIGRATION_SUMMARY.md
+镜像构建说明.md
+镜像打包验证报告.md
+代码修改兼容性检查报告.md
+优化方案-加强诊断数据展示.md
+提示词优化效果分析.md
+端到端测试验证报告.md
+专科智能体诊断结果日志记录检查报告.md
+diagnosis_logger参数传递检查报告.md
+
+# Logs
+*.log
+*.log.*
+Cybertwin_Agent_output.log
+
+# Data files
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# Build artifacts
+*.tar
+*.tar.gz
+*.zip
+triage-agent.tar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Scripts (keep build scripts but ignore others)
+setup_*.ps1
+setup_*.sh
+!build_image.sh
+!build_image.ps1

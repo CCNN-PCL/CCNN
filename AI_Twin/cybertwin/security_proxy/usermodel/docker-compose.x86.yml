@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  x86-app:
+    build:
+      context: .
+      platform: linux/amd64
+    image: your-app:x86-latest
+    platform: linux/amd64
+    container_name: x86-pytorch-app
+    ports:
+      - "8000:8000"
+    environment:
+      - ARCH=amd64
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

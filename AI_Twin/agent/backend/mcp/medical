@@ -1,0 +1,10 @@
+meta=None 
+content=[TextContent(type='text', 
+text='{"datas":[{"data_service_address":"mcp://192.168.208.66:30211",
+"data_types":"病史数据 用药记录 化验报告 影像数据 手术记录",
+"department":"内分泌科","hospital_location":"北京","hospital_name":"北京协和"}]}', 
+annotations=None, meta=None)] 
+structuredContent={'datas': [{'data_service_address': 'mcp://192.168.208.66:30211', 
+'data_types': '病史数据 用药记录 化验报告 影像数据 手术记录', 
+'department': '内分泌科', 'hospital_location': '北京', 'hospital_name': '北京协和'}]} 
+isError=False

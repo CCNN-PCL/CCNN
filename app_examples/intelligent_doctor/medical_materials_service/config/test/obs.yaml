@@ -1,0 +1,4 @@
+obs:
+  endpoint: "1.1.1.1"
+  access_key: "test1"
+  secret_key: "test2"

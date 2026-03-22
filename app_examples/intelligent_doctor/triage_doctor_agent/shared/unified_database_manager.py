@@ -1,0 +1,127 @@
+# Copyright (c) 2026 PCL-CCNN
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+统一数据库管理器
+===============
+支持SQLite和MySQL动态切换
+注意：PostgreSQL支持已迁移到MySQL，相关代码已注释
+"""
+
+import os
+import logging
+from typing import Optional, Dict, Any
+# 尝试导入数据库配置（处理路径问题，支持Uvicorn reloader）
+try:
+    import sys
+    import os
+    # 方法1: 从当前文件位置计算项目根目录
+    current_file = os.path.abspath(__file__)
+    project_root = os.path.dirname(os.path.dirname(current_file))
+    
+    # 方法2: 如果方法1失败，尝试从工作目录
+    if not os.path.exists(os.path.join(project_root, 'config', 'database_config.py')):
+        # 尝试从当前工作目录
+        cwd = os.getcwd()
+        if os.path.exists(os.path.join(cwd, 'config', 'database_config.py')):
+            project_root = cwd
+    
+    if project_root not in sys.path:
+        sys.path.insert(0, project_root)
+    
+    from config.database_config import db_config
+except (ImportError, ModuleNotFoundError) as e:
+    # 如果导入失败，使用默认配置
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.warning(f"无法导入数据库配置: {str(e)}，使用默认SQLite配置")
+    logger.debug(f"当前工作目录: {os.getcwd()}")
+    logger.debug(f"Python路径前5项: {sys.path[:5]}")
+    class DefaultDBConfig:
+        database_type = 'sqlite'
+    db_config = DefaultDBConfig()
+
+logger = logging.getLogger(__name__)
+
+# 根据配置动态导入数据库管理器
+# PostgreSQL支持已迁移到MySQL，相关代码已注释
+# if db_config.database_type == 'postgresql':
+#     try:
+#         from shared.postgresql_database_manager import postgresql_db_manager as db_manager
+#         logger.info("使用PostgreSQL数据库管理器")
+#     except ImportError as e:
+#         logger.error(f"PostgreSQL数据库管理器导入失败: {str(e)}")
+#         db_manager = None
+if db_config.database_type == 'mysql':
+    try:
+        from shared.mysql_database_manager import mysql_db_manager as db_manager
+        logger.info("使用MySQL数据库管理器")
+    except ImportError as e:
+        logger.error(f"MySQL数据库管理器导入失败: {str(e)}")
+        db_manager = None
+else:
+    try:
+        # 创建一个简单的SQLite数据库管理器
+        from shared.auth_manager import AuthDatabaseManager
+        db_manager = AuthDatabaseManager()
+        logger.info("使用SQLite数据库管理器")
+    except ImportError as e:
+        logger.error(f"SQLite数据库管理器导入失败: {str(e)}")
+        db_manager = None
+
+# 导出统一的数据库管理器接口
+__all__ = ['db_manager']
+
+class UnifiedDatabaseManager:
+    """统一数据库管理器包装类"""
+    
+    def __init__(self):
+        self.db_manager = db_manager
+        self.logger = logging.getLogger(self.__class__.__name__)
+    
+    def execute_query(self, query: str, params: tuple = None, database_name: str = None) -> Optional[Any]:
+        """执行查询"""
+        if self.db_manager is None:
+            self.logger.error("数据库管理器未初始化")
+            return None
+        
+        try:
+            if hasattr(self.db_manager, 'execute_query'):
+                return self.db_manager.execute_query(query, params, database_name)
+            else:
+                # 对于简单的SQLite管理器，直接执行查询
+                import sqlite3
+                if database_name:
+                    db_path = f"data/{database_name}.db"
+                else:
+                    db_path = "data/auth.db"
+                
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                if params:
+                    cursor.execute(query, params)
+                else:
+                    cursor.execute(query)
+                
+                result = cursor.fetchall()
+                conn.commit()
+                conn.close()
+                return result
+        except Exception as e:
+            self.logger.error(f"执行查询失败: {str(e)}")
+            return None
+    
+    def close_all_connections(self):
+        """关闭所有数据库连接"""
+        if self.db_manager and hasattr(self.db_manager, 'close'):
+            self.db_manager.close()

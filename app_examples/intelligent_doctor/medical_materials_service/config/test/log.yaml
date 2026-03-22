@@ -1,0 +1,4 @@
+log:
+  file_path: "./test.log"
+  verbose: true 
+  debug: true

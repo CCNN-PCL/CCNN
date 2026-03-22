@@ -1,0 +1,57 @@
+{
+  "name": "face_frontend",
+  "version": "v0.0.0-de79104",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "version:show": "node -e \"console.log('当前版本:', require('./package.json').version)\"",
+    "version:auto": "node scripts/auto-version.js",
+    "version:timestamp": "node scripts/auto-version.js timestamp",
+    "version:semantic": "node scripts/auto-version.js semantic",
+    "version:inject": "node scripts/inject-version.js"
+  },
+  "dependencies": {
+    "@dsb-norge/vue-keycloak-js": "^3.0.3",
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "axios": "^1.11.0",
+    "core-js": "^3.8.3",
+    "keycloak-js": "^26.2.0",
+    "markdown-it": "^14.1.0",
+    "mobile-detect": "^1.4.5",
+    "socket.io-client": "^4.8.1",
+    "ua-parser-js": "^2.0.5",
+    "vue": "^3.2.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "dotenv-webpack": "^8.1.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

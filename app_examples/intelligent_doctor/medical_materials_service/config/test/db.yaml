@@ -1,0 +1,18 @@
+db:
+  user: "test"
+  password: "test_pw"
+  db_name: "test"
+  addresses:
+    - "1"
+    - "2"
+  ssl:
+    enable: true
+    ca_file: "./ca_file"
+    cert_file: "./cert_file"
+    key_file: "./key_file"
+  pool:
+    max_open_conns: 10
+    max_idle_conns: 20
+    conn_max_life_time: 30
+    conn_max_idle_time: 20
+

@@ -1,0 +1,142 @@
+[
+  {
+    "user_id": "111",                          
+    "date": "",                      
+    "heart_rate": {                            
+      "avg_bpm": 72,                           
+      "max_bpm": 135,                          
+      "min_bpm": 55,                           
+      "resting_bpm": 58                        
+    },
+    "blood_glucose": {                         
+      "morning_mmol": 5.2,                     
+      "evening_mmol": 5.8                      
+    },
+    "sleep": {                                 
+      "total_minutes": 468,                    
+      "deep_minutes": 95,                      
+      "light_minutes": 285,                    
+      "rem_minutes": 88,                       
+      "bedtime": "23:15",                      
+      "wake_time": "07:03"                     
+    },
+    "steps": 10234,                            
+    "distance_km": 7.8,                        
+    "calories_kcal": 312,                      
+    "stress_level": 28,                        
+    "spo2_percent": 98,                        
+    "skin_temp_celsius": 33.4                  
+  },
+  {
+    "user_id": "111",
+    "date": "",
+    "heart_rate": {
+      "avg_bpm": 74,
+      "max_bpm": 142,
+      "min_bpm": 56,
+      "resting_bpm": 59
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.0,
+      "evening_mmol": 6.1
+    },
+    "sleep": {
+      "total_minutes": 445,
+      "deep_minutes": 88,
+      "light_minutes": 270,
+      "rem_minutes": 87,
+      "bedtime": "23:45",
+      "wake_time": "07:10"
+    },
+    "steps": 8932,
+    "distance_km": 6.5,
+    "calories_kcal": 287,
+    "stress_level": 35,
+    "spo2_percent": 97,
+    "skin_temp_celsius": 33.6
+  },
+  {
+    "user_id": "111",
+    "date": "",
+    "heart_rate": {
+      "avg_bpm": 70,
+      "max_bpm": 128,
+      "min_bpm": 54,
+      "resting_bpm": 57
+    },
+    "blood_glucose": {
+      "morning_mmol": 4.9,
+      "evening_mmol": 5.5
+    },
+    "sleep": {
+      "total_minutes": 512,
+      "deep_minutes": 110,
+      "light_minutes": 310,
+      "rem_minutes": 92,
+      "bedtime": "22:30",
+      "wake_time": "06:42"
+    },
+    "steps": 11567,
+    "distance_km": 8.9,
+    "calories_kcal": 345,
+    "stress_level": 22,
+    "spo2_percent": 99,
+    "skin_temp_celsius": 33.2
+  },
+  {
+    "user_id": "111",
+    "date": "",
+    "heart_rate": {
+      "avg_bpm": 76,
+      "max_bpm": 150,
+      "min_bpm": 58,
+      "resting_bpm": 60
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.4,
+      "evening_mmol": 6.0
+    },
+    "sleep": {
+      "total_minutes": 420,
+      "deep_minutes": 75,
+      "light_minutes": 260,
+      "rem_minutes": 85,
+      "bedtime": "00:10",
+      "wake_time": "07:10"
+    },
+    "steps": 7234,
+    "distance_km": 5.4,
+    "calories_kcal": 256,
+    "stress_level": 42,
+    "spo2_percent": 96,
+    "skin_temp_celsius": 33.7
+  },
+  {
+    "user_id": "111",
+    "date": "",
+    "heart_rate": {
+      "avg_bpm": 73,
+      "max_bpm": 138,
+      "min_bpm": 55,
+      "resting_bpm": 58
+    },
+    "blood_glucose": {
+      "morning_mmol": 5.1,
+      "evening_mmol": 5.7
+    },
+    "sleep": {
+      "total_minutes": 485,
+      "deep_minutes": 98,
+      "light_minutes": 295,
+      "rem_minutes": 92,
+      "bedtime": "23:00",
+      "wake_time": "07:05"
+    },
+    "steps": 10890,
+    "distance_km": 8.2,
+    "calories_kcal": 328,
+    "stress_level": 30,
+    "spo2_percent": 98,
+    "skin_temp_celsius": 33.3
+  }
+]

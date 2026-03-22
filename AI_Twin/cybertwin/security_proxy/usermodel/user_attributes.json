@@ -1,0 +1,10 @@
+{
+    "subject_type": "user",
+    "common_device": true,
+    "time": 8,
+    "location": "office",
+    "bio": 0.78,
+    "pswd": 1,
+    "access_network_score": 0.8,
+    "network_risk": 0.5
+}

@@ -1,0 +1,89 @@
+# Cybertwin DataProxy Service Configuration Example
+# =================================================
+
+# Server Configuration
+server:
+  # Address to listen on (e.g., ":8080", "0.0.0.0:8080", "localhost:8080")
+  # Can be overridden by command line argument -a or --address
+  address: ":8080"
+
+# Database Configuration
+db:
+  # Database host
+  host: "localhost"
+  # Database port
+  port: 3306
+  # Database username
+  username: "cybertwin_user"
+  # Database password
+  password: "your_password_here"
+  # Database name
+  database: "cybertwin_db"
+  # Maximum idle connections
+  max_idle_conns: 10
+  # Maximum open connections
+  max_open_conns: 100
+  # Connection maximum lifetime (e.g., "1h", "30m")
+  conn_max_lifetime: "1h"
+
+# Logging Configuration
+log:
+  # Log file path (use empty string for stdout)
+  file_path: "./logs/cybertwin.log"
+  # Verbose logging (info level)
+  verbose: true
+  # Debug logging (debug level)
+  debug: false
+
+# OBS (Object Storage Service) Configuration (optional)
+obs:
+  # OBS endpoint
+  endpoint: "obs.example.com"
+  # Access key
+  access_key: "your_access_key"
+  # Secret key
+  secret_key: "your_secret_key"
+  # Bucket name
+  bucket: "cybertwin-bucket"
+
+# MCP (Model Context Protocol) Configuration
+mcp:
+  # MCP server name
+  name: "CybertwinDataProxyService"
+  # MCP server version
+  version: "0.1.0"
+  # Enable/disable MCP features
+  enabled: true
+
+# =================================================
+# Usage Examples:
+# =================================================
+
+# 1. Using default configuration:
+#    server
+
+# 2. Using custom configuration file:
+#    server -c /path/to/your/config.yaml
+#    server --config /path/to/your/config.yaml
+
+# 3. Overriding server address:
+#    server -a :9090
+#    server --address 0.0.0.0:9090
+
+# 4. Setting log level:
+#    server -l debug
+#    server --log-level info
+
+# 5. Showing version information:
+#    server -v
+#    server --version
+
+# 6. Showing help:
+#    server -h
+#    server --help
+
+# 7. Using environment variables:
+#    export CYBERTWIN_SERVER_ADDRESS=":9090"
+#    export CYBERTWIN_LOG_LEVEL="debug"
+#    export CYBERTWIN_CONFIG_PATH="/path/to/config.yaml"
+#    server
